@@ -38,3 +38,27 @@ body {
 	color:#f9f0ec;
 	background: linear-gradient(60deg, rgb(45 52 90 / 100%) 00%, rgb(0 0 0 / 100%) 100%);
 }
+
+
+/* In your main.css */
+
+/* Make sure the canvas doesn't overlap the button */
+canvas {
+    display: block;
+    position: fixed;
+    top: 10;
+    left: 0;
+    z-index: -1; /* Puts the canvas in the background */
+}
+
+/* Style for our new HTML button */
+.overlay-button {
+    position: absolute;
+    bottom: 16%; /* Adjust vertical position */
+    left: 23%;
+    transform: translateX(-50%); /* Horizontally center the button */
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    cursor: pointer; /* Makes it look clickable */
+    z-index: 10; /* Ensures it's on top of everything */
+}
