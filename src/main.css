@@ -63,3 +63,14 @@ canvas {
     cursor: pointer;
     z-index: 10;
 }
+
+.right-side-gif {
+    position: absolute;
+    right: 30%;
+    top: 43%;
+    transform: translateY(-50%);
+    width: 35vw;      /* Increased responsive width */
+    max-width: 550px; /* Increased maximum size */
+    height: auto;
+    z-index: 5;
+}
