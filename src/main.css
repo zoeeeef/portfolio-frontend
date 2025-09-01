@@ -54,11 +54,12 @@ canvas {
 /* Style for our new HTML button */
 .overlay-button {
     position: absolute;
-    bottom: 16%; /* Adjust vertical position */
+    bottom: 20%;
     left: 23%;
-    transform: translateX(-50%); /* Horizontally center the button */
-    width: 300px; /* Adjust size as needed */
+    transform: translateX(-50%);
+    width: 20vw; /* Button is now 20% of the viewport width */
+    max-width: 300px; /* But it won't get bigger than 300px */
     height: auto;
-    cursor: pointer; /* Makes it look clickable */
-    z-index: 10; /* Ensures it's on top of everything */
+    cursor: pointer;
+    z-index: 10;
 }

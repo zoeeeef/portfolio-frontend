@@ -15,12 +15,27 @@ const clock = new THREE.Clock();
 let waveModel, talkingModel;
 let currentState = 'wave';
 
-// --- ✨ SIMPLIFIED swapContent FUNCTION ---
-function swapContent() {
-    // Get the HTML button element by its ID
-    const myButton = document.getElementById('myHtmlButton');
+// --- ✨ NEW: Function to calculate responsive model position ---
+function updateModelPositions() {
+    if (!waveModel || !talkingModel) return;
 
-    // Exit if models haven't loaded yet
+    // This calculates the visible width of the scene at the model's depth (z=0)
+    const visibleHeight = 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * camera.position.z;
+    const visibleWidth = visibleHeight * camera.aspect;
+
+    // Set the model's X position to be 25% from the left edge of the screen
+    // Change 0.25 to 0.5 for center, 0.1 for far left, etc.
+    const xOffsetPercent = 0.25; 
+    const targetX = (-visibleWidth / 2) + (visibleWidth * xOffsetPercent);
+
+    // Apply the new position to both models
+    waveModel.position.x = targetX;
+    talkingModel.position.x = targetX;
+}
+
+
+function swapContent() {
+    const myButton = document.getElementById('myHtmlButton');
     if (!waveModel || !talkingModel) {
         console.log("Models are not ready yet.");
         return;
@@ -29,10 +44,7 @@ function swapContent() {
     if (currentState === 'wave') {
         scene.remove(waveModel);
         scene.add(talkingModel);
-
-        // Change the button's image source
         myButton.src = 'medidyouknowButton.png';
-
         if (talkingModel.animations && talkingModel.animations.length) {
             mixer = new THREE.AnimationMixer(talkingModel);
             const action = mixer.clipAction(talkingModel.animations[0]);
@@ -42,10 +54,7 @@ function swapContent() {
     } else {
         scene.remove(talkingModel);
         scene.add(waveModel);
-
-        // Change the button's image source back
         myButton.src = 'mehitalkButton.png';
-
         if (waveModel.animations && waveModel.animations.length) {
             mixer = new THREE.AnimationMixer(waveModel);
             const action = mixer.clipAction(waveModel.animations[0]);
@@ -84,10 +93,15 @@ function init() {
     gltfLoader.load('meanimationwave.glb', (gltf) => {
         waveModel = gltf.scene;
         waveModel.scale.set(2.5, 2.5, 2.5);
-        waveModel.position.set(-18, -3, 0);
-        waveModel.lookAt(camera.position.x, waveModel.position.y, camera.position.z);
+        // Set Y and Z position, but let the responsive function handle X
+        waveModel.position.set(0, -3, 0); 
+        waveModel.lookAt(camera.position.x+15, waveModel.position.y, camera.position.z);
         waveModel.animations = gltf.animations;
         scene.add(waveModel);
+
+        // Call update once the talking model is also ready
+        if (talkingModel) updateModelPositions();
+
         if (waveModel.animations && waveModel.animations.length) {
             mixer = new THREE.AnimationMixer(waveModel);
             const action = mixer.clipAction(waveModel.animations[0]);
@@ -98,18 +112,16 @@ function init() {
     gltfLoader.load('meanimationomgtalking.glb', (gltf) => {
         talkingModel = gltf.scene;
         talkingModel.scale.set(2.5, 2.5, 2.5);
-        talkingModel.position.set(-18, -3, 0);
+        // Set Y and Z position, but let the responsive function handle X
+        talkingModel.position.set(0, -3, 0); 
         talkingModel.lookAt(camera.position.x, talkingModel.position.y, camera.position.z);
         talkingModel.animations = gltf.animations;
+        
+        // Call update once the wave model is also ready
+        if (waveModel) updateModelPositions();
     });
 
-    // --- 3D BUTTON AND RAYCASTER CODE REMOVED ---
-    // We no longer need to load textures, create a plane, or use a raycaster.
-
-    // --- ✨ NEW HTML BUTTON CLICK LISTENER ---
-    // Get our HTML button from the page
     const myButton = document.getElementById('myHtmlButton');
-    // Tell it to call swapContent when clicked
     if (myButton) {
         myButton.addEventListener('click', swapContent);
     }
@@ -122,6 +134,9 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+
+    // --- ✨ UPDATE MODEL POSITION ON RESIZE ---
+    updateModelPositions();
 }
 
 function animate() {
