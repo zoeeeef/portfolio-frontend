@@ -74,3 +74,15 @@ canvas {
     height: auto;
     z-index: 5;
 }
+
+/* Style for our new HTML button */
+.resumeButton {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: 10vw;      /* Increased responsive width */
+    transform: translateX(50%);
+    height: auto;
+    cursor: pointer;
+    z-index: 10;
+}
