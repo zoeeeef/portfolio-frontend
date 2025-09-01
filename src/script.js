@@ -5,48 +5,58 @@ import { gsap } from 'gsap';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
-import { MeshReflectorMaterial } from '../static/shaders/MeshReflectorMaterial.js';
 
-
-// Get the HTML element with the ID "message"
 const messageElement = document.getElementById('message');
-
-// Set the text content of that element to "Hello, World!"
 messageElement.textContent = 'Hello, World!';
 
-
-let scene, camera, renderer, mixer;
+let scene, camera, renderer, mixer, controls;
 const clock = new THREE.Clock();
 
-// Initialize the scene, camera, and renderer
 function init() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xabcdef);
+    scene.background = new THREE.Color(0xffffff);
 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 1, 5);
+    // NEW: Lowered camera on Y-axis for a more direct, less angled view
+    camera.position.set(0,9,25);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Add lighting to make the model visible
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    // NEW: Disable zooming to fix the model's size
+    controls.enableZoom = false;
+
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(1, 1, 1).normalize();
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    directionalLight.position.set(5, 5, 5).normalize();
     scene.add(directionalLight);
 
-    // Load the GLB model using GLTFLoader
     const loader = new GLTFLoader();
     loader.load(
-        'meanimationwave.glb', // Path to your GLB file
+        'meanimationwave.glb',
         function (gltf) {
-            scene.add(gltf.scene);
+            const model = gltf.scene;
+            
+            model.scale.set(2.5, 2.5, 2.5);
 
-            // Check for and play animations
+            // NEW: Moved model further to the left
+            //model.position.x = -40;
+            //model.position.z = -60;
+            model.position.set(-20, -2, 0);
+            model.lookAt(camera.position.x, model.position.y, camera.position.z);
+
+            //model.lookAt(new THREE.Vector3(0, 0, 0));
+            //model.rotation.y = Math.PI; // Math.PI is 180 degrees
+
+            scene.add(model);
+            controls.target.copy(model.position);
+
             if (gltf.animations && gltf.animations.length) {
-                mixer = new THREE.AnimationMixer(gltf.scene);
+                mixer = new THREE.AnimationMixer(model);
                 const action = mixer.clipAction(gltf.animations[0]);
                 action.play();
                 console.log('Animation loaded and playing!');
@@ -54,24 +64,21 @@ function init() {
                 console.warn('No animations found in the GLB model.');
             }
         },
-        undefined, // Optional progress callback
+        undefined,
         function (error) {
             console.error('An error occurred while loading the GLB model:', error);
         }
     );
 
-    // Handle window resizing
     window.addEventListener('resize', onWindowResize);
 }
 
-// Update camera and renderer on window resize
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth / window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
@@ -79,11 +86,11 @@ function animate() {
     if (mixer) {
         mixer.update(delta);
     }
+    
+    controls.update();
 
     renderer.render(scene, camera);
 }
 
-// Start the application
 init();
 animate();
-
