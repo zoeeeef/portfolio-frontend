@@ -145,6 +145,34 @@ if(aboutMeButton && aboutMeScreen && closeButton) {
 }
 }
 
+
+// --- NEW LOGIC FOR ABOUT ME SCREEN ---
+const aboutMeButton = document.getElementById('aboutmeButton');
+const aboutMeScreen = document.getElementById('about-me-screen');
+const closeButton = document.getElementById('close-button');
+const aboutMeImage = document.getElementById('about-me-image');
+
+if(aboutMeButton && aboutMeScreen && closeButton && aboutMeImage) {
+    // Show the screen when the "About Me" button is clicked
+    aboutMeButton.addEventListener('click', () => {
+        // ✨ FIX: Reset the image to the original every time the screen is opened
+        aboutMeImage.src = 'aboutmePhone.png'; 
+        
+        aboutMeScreen.style.display = 'flex';
+    });
+
+    // Hide the screen when the 'X' button is clicked
+    closeButton.addEventListener('click', () => {
+        aboutMeScreen.style.display = 'none';
+    });
+
+    // Change the image when it is clicked
+    aboutMeImage.addEventListener('click', (event) => {
+        event.stopPropagation(); 
+        aboutMeImage.src = 'aboutmegraduationpostiPhone.png';
+    });
+}
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();

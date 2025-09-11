@@ -132,19 +132,27 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    /* --- This is the key change for side-by-side layout --- */
+    flex-direction: row; 
+    gap: 2vw; /* Adds a bit of space between the images */
     z-index: 100;
-    /* cursor: pointer; <-- REMOVE THIS LINE */
     display: none;
 }
 
-.overlay-screen img {
-    /* Ensures the image is responsive and doesn't overflow */
-    max-width: 90%;
+/* REPLACE your old .overlay-screen img style with a more specific one */
+#about-me-image {
+    /* Controls the size of the main phone image */
+    max-width: 45%;
     max-height: 80vh;
     height: auto;
 }
 
+/* ADD THIS NEW STYLE for the status GIF */
+.status-gif {
+    max-width: 30%;
+    max-height: 60vh;
+    height: auto;
+}
 
 .close-button {
     position: absolute;
