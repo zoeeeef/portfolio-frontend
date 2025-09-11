@@ -46,16 +46,16 @@ body {
 canvas {
     display: block;
     position: fixed;
-    top: 10;
-    left: 0;
+    top: 8%;
+    left: -5%;
     z-index: -1; /* Puts the canvas in the background */
 }
 
 /* Style for our new HTML button */
 .overlay-button {
     position: absolute;
-    bottom: 20%;
-    left: 23%;
+    bottom: 12%;
+    left: 19%;
     transform: translateX(-50%);
     width: 20vw; /* Button is now 20% of the viewport width */
     max-width: 300px; /* But it won't get bigger than 300px */
@@ -66,10 +66,10 @@ canvas {
 
 .right-side-gif {
     position: absolute;
-    right: 30%;
-    top: 43%;
+    right: 27%;
+    top: 47%;
     transform: translateY(-50%);
-    width: 35vw;      /* Increased responsive width */
+    width: 68%;      /* Increased responsive width */
     max-width: 550px; /* Increased maximum size */
     height: auto;
     z-index: 5;
@@ -86,3 +86,39 @@ canvas {
     cursor: pointer;
     z-index: 10;
 }
+
+
+/* Style for our new HTML button */
+.aboutmeButton {
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    width: 10vw;      /* Increased responsive width */
+    transform: translateX(50%);
+    height: auto;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.portfolioButton {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    width: 10vw;      /* Increased responsive width */
+    transform: translateX(50%);
+    height: auto;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.exhibithallButton {
+    position: absolute;
+    top: 70%;
+    right: 15%;
+    width: 10vw;      /* Increased responsive width */
+    transform: translateX(50%);
+    height: auto;
+    cursor: pointer;
+    z-index: 10;
+}
+

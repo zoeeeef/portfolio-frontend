@@ -109,12 +109,12 @@ function init() {
         }
     });
 
-    gltfLoader.load('meanimationomgtalking.glb', (gltf) => {
+    gltfLoader.load('meanimationomgtalking1.glb', (gltf) => {
         talkingModel = gltf.scene;
         talkingModel.scale.set(2.5, 2.5, 2.5);
         // Set Y and Z position, but let the responsive function handle X
         talkingModel.position.set(0, -3, 0); 
-        talkingModel.lookAt(camera.position.x, talkingModel.position.y, camera.position.z);
+        talkingModel.lookAt(camera.position.x+200, talkingModel.position.y, camera.position.z);
         talkingModel.animations = gltf.animations;
         
         // Call update once the wave model is also ready
