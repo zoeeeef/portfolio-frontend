@@ -122,3 +122,37 @@ canvas {
     z-index: 10;
 }
 
+.overlay-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    /* cursor: pointer; <-- REMOVE THIS LINE */
+    display: none;
+}
+
+.overlay-screen img {
+    /* Ensures the image is responsive and doesn't overflow */
+    max-width: 90%;
+    max-height: 80vh;
+    height: auto;
+}
+
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    line-height: 1;
+}

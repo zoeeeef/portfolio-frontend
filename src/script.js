@@ -127,6 +127,22 @@ function init() {
     }
     
     window.addEventListener('resize', onWindowResize);
+ // --- NEW LOGIC FOR ABOUT ME SCREEN ---
+const aboutMeButton = document.getElementById('aboutmeButton');
+const aboutMeScreen = document.getElementById('about-me-screen');
+const closeButton = document.getElementById('close-button'); // Get the new 'X' button
+
+if(aboutMeButton && aboutMeScreen && closeButton) {
+    // Show the screen when the "About Me" button is clicked
+    aboutMeButton.addEventListener('click', () => {
+        aboutMeScreen.style.display = 'flex';
+    });
+
+    // Hide the screen when the 'X' button is clicked
+    closeButton.addEventListener('click', () => {
+        aboutMeScreen.style.display = 'none';
+    });
+}
 }
 
 function onWindowResize() {
