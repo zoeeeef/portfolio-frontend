@@ -146,6 +146,13 @@ canvas {
     max-height: 80vh;
     height: auto;
 }
+#about-me-image2 {
+    /* Controls the size of the second phone image */
+    max-width: 45%;
+    max-height: 80vh;
+    height: auto;
+}
+
 
 /* ADD THIS NEW STYLE for the status GIF */
 .status-gif {

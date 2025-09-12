@@ -146,17 +146,28 @@ if(aboutMeButton && aboutMeScreen && closeButton) {
 }
 
 
+// In your init() function, REPLACE the old "About Me" logic with this
+
 // --- NEW LOGIC FOR ABOUT ME SCREEN ---
 const aboutMeButton = document.getElementById('aboutmeButton');
 const aboutMeScreen = document.getElementById('about-me-screen');
 const closeButton = document.getElementById('close-button');
 const aboutMeImage = document.getElementById('about-me-image');
 
+// Array of images to cycle through
+const aboutMeImages = [
+    'aboutmePhone.png',
+    'aboutmegraduationpostiPhone.png',
+    'aboutmeirelandpostiPhone.png'
+];
+let currentImageIndex = 0; // Tracks which image is currently displayed
+
 if(aboutMeButton && aboutMeScreen && closeButton && aboutMeImage) {
     // Show the screen when the "About Me" button is clicked
     aboutMeButton.addEventListener('click', () => {
-        // ✨ FIX: Reset the image to the original every time the screen is opened
-        aboutMeImage.src = 'aboutmePhone.png'; 
+        // Reset the image to the first one every time the screen is opened
+        currentImageIndex = 0;
+        aboutMeImage.src = aboutMeImages[currentImageIndex]; 
         
         aboutMeScreen.style.display = 'flex';
     });
@@ -166,10 +177,15 @@ if(aboutMeButton && aboutMeScreen && closeButton && aboutMeImage) {
         aboutMeScreen.style.display = 'none';
     });
 
-    // Change the image when it is clicked
+    // Cycle through the images when the image is clicked
     aboutMeImage.addEventListener('click', (event) => {
-        event.stopPropagation(); 
-        aboutMeImage.src = 'aboutmegraduationpostiPhone.png';
+        event.stopPropagation(); // Prevents the screen from closing
+
+        // Move to the next image index, and loop back to 0 if at the end
+        currentImageIndex = (currentImageIndex + 1) % aboutMeImages.length;
+
+        // Update the image source to the new image
+        aboutMeImage.src = aboutMeImages[currentImageIndex];
     });
 }
 
