@@ -197,7 +197,7 @@ canvas {
 .portfolio-gif {
     position: absolute;
     right: 55%;  /* Position from the right edge */
-    top: 70%;    /* Position vertically in the middle */
+    top: 75%;    /* Position vertically in the middle */
     transform: translateY(-50%); /* This perfectly centers it vertically */
 
     /* Sizing - you can adjust these values */
@@ -221,6 +221,35 @@ canvas {
 
     z-index: 100; /* Ensures it's visible on the overlay screen */
 }
+
+.cinema-section {
+    position: absolute;
+    right: 10%;  /* Position from the right edge */
+    top: 30%;    /* Position vertically in the middle */
+    transform: translateY(-50%); /* This perfectly centers it vertically */
+
+    /* Sizing - you can adjust these values */
+    width: 38vw;
+    max-width: 700px;
+    height: auto;
+
+    z-index: 100; /* Ensures it's visible on the overlay screen */
+}
+
+.design-section {
+    position: absolute;
+    right: 10%;  /* Position from the right edge */
+    top: 75%;    /* Position vertically in the middle */
+    transform: translateY(-50%); /* This perfectly centers it vertically */
+
+    /* Sizing - you can adjust these values */
+    width: 38vw;
+    max-width: 700px;
+    height: auto;
+
+    z-index: 100; /* Ensures it's visible on the overlay screen */
+}
+
 
 
 /* .hidden {
