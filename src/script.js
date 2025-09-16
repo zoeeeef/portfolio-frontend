@@ -144,7 +144,20 @@ if(aboutMeButton && aboutMeScreen && closeButton) {
     });
 }
 }
+const portfolioButton = document.getElementById('portfolioButton');
+const portfolioScreen = document.getElementById('portfolio-screen');
+const closeButton2 = document.getElementById('close-button-portfolio');
 
+if(portfolioButton && portfolioScreen && closeButton2) {
+    // Show the screen when the "Portfolio" button is clicked
+    portfolioButton.addEventListener('click', () => {
+        portfolioScreen.style.display = 'flex';
+    });
+     // Hide the screen when the 'X' button is clicked
+    closeButton2.addEventListener('click', () => {
+        portfolioScreen.style.display = 'none';
+    });
+}
 
 // In your init() function, REPLACE the old "About Me" logic with this
 
